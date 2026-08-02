@@ -14,16 +14,26 @@ class Categoria(models.Model):
     class Meta:
         verbose_name_plural = "Categorias"
         verbose_name = "Categoria"
-        Ordering = ["nombre"]
+        ordering = ["nombre"]
 
 
 class Producto(models.Model):
-    Categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name="productos", null=True, blank=True)
-    
+    categoria = models.ForeignKey(
+        Categoria,
+        on_delete=models.CASCADE,
+        related_name="productos",
+        null=True,
+        blank=True
+    )
+
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
-    imagen = models.ImageField(upload_to="productos/", null=True, blank=True)
+    imagen = models.ImageField(
+        upload_to="productos/",
+        null=True,
+        blank=True
+    )
     activa = models.BooleanField(default=True)
     stock = models.IntegerField()
     
